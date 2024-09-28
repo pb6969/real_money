@@ -7,12 +7,17 @@ function App() {
   const [buySignals, setBuySignals] = useState([]);
   const [loading, setLoading] = useState(false);  // State to manage loading
 
+  // Define API URL based on the environment
+  const apiUrl = window.location.hostname === "localhost"
+    ? "http://localhost:5000/calculate"
+    : "https://real-money-server.onrender.com/calculate";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);  // Start loading
 
     try {
-      const response = await axios.post("http://localhost:5000/calculate", {
+      const response = await axios.post(apiUrl, {
         endDate: endDate
       });
       setBuySignals(response.data);
